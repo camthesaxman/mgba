@@ -93,7 +93,7 @@ static inline int ThreadSetName(const char* name) {
 #elif defined(__HAIKU__)
 	rename_thread(find_thread(NULL), name);
 	return 0;
-#elif !defined(BUILD_PANDORA) // Pandora's glibc is too old
+#elif !defined(BUILD_PANDORA) && !defined(_WIN32) // Pandora's glibc is too old
 	return pthread_setname_np(pthread_self(), name);
 #else
 	UNUSED(name);

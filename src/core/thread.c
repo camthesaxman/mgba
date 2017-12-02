@@ -292,7 +292,7 @@ bool mCoreThreadStart(struct mCoreThread* threadContext) {
 
 	threadContext->impl->interruptDepth = 0;
 
-#ifdef USE_PTHREADS
+#if defined(USE_PTHREADS) && !defined(_WIN32)
 	sigset_t signals;
 	sigemptyset(&signals);
 	sigaddset(&signals, SIGINT);

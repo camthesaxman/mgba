@@ -208,10 +208,9 @@ void mCoreConfigDirectory(char* out, size_t outLength) {
 	if (portable) {
 		portable->close(portable);
 	} else {
-		wchar_t* home;
-		SHGetKnownFolderPath(&FOLDERID_RoamingAppData, 0, NULL, &home);
+		wchar_t home[MAX_PATH];
+		SHGetFolderPathW(NULL, CSIDL_APPDATA, NULL, SHGFP_TYPE_CURRENT, home);
 		StringCchPrintfW(wpath, MAX_PATH, L"%ws\\%ws", home, wprojectName);
-		CoTaskMemFree(home);
 		CreateDirectoryW(wpath, NULL);
 	}
 	WideCharToMultiByte(CP_UTF8, 0, wpath, -1, out, outLength, 0, 0);
